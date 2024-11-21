@@ -215,7 +215,7 @@ export default function Home() {
           </div>
           <div className="mb-12">
             <h2 className="text-2xl font-semibold mb-6 text-center text-purple-200">
-                {boutmyself}
+              {content[language].boutmyself}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {images.map((src, index) => (
