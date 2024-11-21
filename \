@@ -4,9 +4,8 @@
 import Image from 'next/image';
 import { GiPickle } from 'react-icons/gi';
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
-import { SiInstagram, SiTiktok, SiDiscord, SiSpotify, SiTwitch } from 'react-icons/si';
 import { FaGuitar, FaCat, FaCode, FaBook, FaMusic, FaYoutube, FaGithub } from 'react-icons/fa';
+import { SiInstagram, SiTiktok, SiDiscord, SiSpotify, SiTwitch } from 'react-icons/si';
 
 const content = {
     en: {
@@ -71,21 +70,22 @@ const content = {
     },
 };
 
-const VisuallyHidden = React.forwardRef<
-  HTMLSpanElement,
-  React.HTMLAttributes<HTMLSpanElement>
->(({ children, ...props }, forwardedRef) => {
-  return (
-    <span
-      ref={forwardedRef}
-      className="absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0"
-      {...props}
-    >
-      {children}
-    </span>
-  )
-})
 
+const images = [
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202024-06-01%2017-55-42_1732155487729-2heHjiJNVv7dhbiIQZXRn1PKrtWyNt.png",
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Sequence%2001_1732155524020.jpg-YCHey2M16px0OgUSlKm4piUmM2tURe.jpeg",
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DangharTemplate_1732155469765-CSDWnJzCAiYiuGP2UOfYBznXOS1o3G.png"
+];
+
+const videos = [
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dager-video-1-xX19hBEKTjUWsJ6VhrA4MClsw5pI1x.mp4",
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dager-video-2-lBaccSQ3KqP03xwZgZrR6B0Uzdlmu6.mp4",
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dager-video-3-BbEHdwyBvdt7I51xz2Fhwra3inEIn9.mp4"
+];
+
+const handleImageClick = (index: number) => {
+    setSelectedVideo(videos[index])
+};
 
 const SectionTitle = ({ children }: { children: string }) => (
   <h2 className="text-3xl font-semibold mb-6 text-center text-purple-200">{children}</h2>
@@ -112,30 +112,15 @@ const SocialLink = ({ Icon, href }: { Icon: React.ElementType; href: string }) =
   </a>
 );
 
-interface VideoModalProps {
-  isOpen: boolean
-  onClose: () => void
-  videoSrc: string
-}
-
 const VideoModal = ({ isOpen, onClose, videoSrc }: VideoModalProps) => (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[800px]">
-        <VisuallyHidden>
-          <DialogTitle>Video Player</DialogTitle>
-        </VisuallyHidden>
-        {videoSrc ? (
-          <video
-            src={videoSrc}
-            controls
-            className="w-full h-auto"
-            autoPlay
-          />
-        ) : (
-          <div className="flex items-center justify-center h-64 bg-gray-100 text-gray-500">
-            No video selected
-          </div>
-        )}
+        <video
+          src={videoSrc}
+          controls
+          className="w-full h-auto"
+          autoPlay
+        />
       </DialogContent>
     </Dialog>
 );
@@ -156,17 +141,6 @@ export default function Home() {
         "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-VIQA46HXR8ew0x7t2AYF66CzbazJzI.png",
         "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/new-banner.jpg-vceDBum0HOjJ5GJZpIILhiai6HYs9F.jpeg"
     ];
-    const images = [
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202024-06-01%2017-55-42_1732155487729-2heHjiJNVv7dhbiIQZXRn1PKrtWyNt.png",
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Sequence%2001_1732155524020.jpg-YCHey2M16px0OgUSlKm4piUmM2tURe.jpeg",
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DangharTemplate_1732155469765-CSDWnJzCAiYiuGP2UOfYBznXOS1o3G.png"
-    ];
-
-    const videos = [
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dager-video-1-xX19hBEKTjUWsJ6VhrA4MClsw5pI1x.mp4",
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dager-video-2-lBaccSQ3KqP03xwZgZrR6B0Uzdlmu6.mp4",
-        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/dager-video-3-BbEHdwyBvdt7I51xz2Fhwra3inEIn9.mp4"
-    ];
 
 
     useEffect(() => {
@@ -186,14 +160,6 @@ export default function Home() {
         }, 5000) 
         return () => clearInterval(interval)
     });
- 
-    const handleImageClick = (index: number) => {
-        setSelectedVideo(videos[index])
-    };
-
-    const handleCloseModal = () => {
-        setSelectedVideo(null)
-    }
 
     return (
     <div className="min-h-screen bg-[#4a3b63] text-white">
@@ -275,31 +241,20 @@ export default function Home() {
             <h2 className="text-2xl font-semibold mb-6 text-center text-purple-200">
               {content[language].boutmyself}
             </h2>
-            <div className="container mx-auto px-4 py-8">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {images.map((src, index) => (
-                <div 
-                    key={index} 
-                    className="overflow-hidden rounded-lg shadow-lg cursor-pointer transition-transform duration-300 hover:scale-105"
-                    onClick={() => handleImageClick(index)}
-                    >
-                <Image
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {images.map((src, index) => (
+                <div key={index} className="overflow-hidden rounded-lg shadow-lg">
+                  <Image
                     src={src}
                     alt={`Gallery Image ${index + 1}`}
                     width={400}
                     height={300}
                     className="object-cover w-full h-full"
-                />
+                  />
+                </div>
+              ))}
             </div>
-            ))}
-        </div>
-            <VideoModal 
-                isOpen={!!selectedVideo} 
-                onClose={handleCloseModal} 
-                videoSrc={selectedVideo || ""}
-            />
-        </div>
-        </div>
+          </div>
           <div className="mb-12">
             <SectionTitle>{content[language].projects}</SectionTitle>
             <div className="grid md:grid-cols-3 gap-6">
