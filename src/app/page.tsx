@@ -1,7 +1,7 @@
 // te quiero mucho guille rauch gracias por dejarme hostear imgs gratis
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FaGuitar, FaCat, FaCode, FaBook, FaMusic, FaYoutube, FaGithub } from 'react-icons/fa';
 import { GiPickle } from 'react-icons/gi';
@@ -68,15 +68,15 @@ const content = {
     },
 };
 
+
+const images = [
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202024-06-01%2017-55-42_1732155487729-2heHjiJNVv7dhbiIQZXRn1PKrtWyNt.png",
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Sequence%2001_1732155524020.jpg-YCHey2M16px0OgUSlKm4piUmM2tURe.jpeg",
+    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/DangharTemplate_1732155469765-CSDWnJzCAiYiuGP2UOfYBznXOS1o3G.png"
+];
+
 const SectionTitle = ({ children }: { children: string }) => (
   <h2 className="text-3xl font-semibold mb-6 text-center text-purple-200">{children}</h2>
-);
-
-const InterestIcon = ({ Icon, label }: { Icon: React.ElementType; label: string }) => (
-  <div className="flex flex-col items-center gap-2">
-    <Icon className="text-3xl text-purple-300" />
-    <span className="text-sm text-purple-200">{label}</span>
-  </div>
 );
 
 const ProjectCard = ({ title, description, link, goto }: { title: string; description: string; link: string; goto: string }) => (
@@ -103,33 +103,43 @@ const SocialLink = ({ Icon, href }: { Icon: React.ElementType; href: string }) =
 
 
 export default function Home() {
-  const [language, setLanguage] = useState<'en' | 'es'>('en');
-  const [mounted, setMounted] = useState(false);
-  const profileImages = [
-    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-6eokCp0N3WsVC0qaEqvY09gkbZRg1S.png",
-    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-mbgnriOz2OMtoawYsqXvf6LFqvS0LU.png",
-    "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Rb0B56RwWADljzmudjo7E8DUnBmPnz.png"
-  ];
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [language, setLanguage] = useState<'en' | 'es'>('en');
+    const [mounted, setMounted] = useState(false);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [currentBanner, setCurrentBanner] = useState(0);
+    const profileImages = [
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-6eokCp0N3WsVC0qaEqvY09gkbZRg1S.png",
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-mbgnriOz2OMtoawYsqXvf6LFqvS0LU.png",
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Rb0B56RwWADljzmudjo7E8DUnBmPnz.png"
+    ];
+    const banners = [
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-VIQA46HXR8ew0x7t2AYF66CzbazJzI.png",
+        "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/new-banner.jpg-vceDBum0HOjJ5GJZpIILhiai6HYs9F.jpeg"
+    ];
 
+    useEffect(() => {
+        setMounted(true)
+    }, []);
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prev) => (prev + 1) % profileImages.length);
+        }, 3000);
+        return () => clearInterval(interval);
+    });
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % profileImages.length);
-    }, 3000);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentBanner((prev) => (prev + 1) % banners.length)
+        }, 5000) 
+        return () => clearInterval(interval)
+    });
 
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
+    return (
     <div className="min-h-screen bg-[#4a3b63] text-white">
       <div className="relative h-64 md:h-80 overflow-hidden">
         <Image
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-VIQA46HXR8ew0x7t2AYF66CzbazJzI.png"
+          src={banners[currentBanner]}
           alt="Dot Dager Banner"
           fill
           className="object-cover"
@@ -199,6 +209,24 @@ export default function Home() {
                 <FaMusic className="text-5xl text-purple-300" />
                 <span className="text-sm text-purple-200"></span>
               </div>
+            </div>
+          </div>
+          <div className="mb-12">
+            <h2 className="text-2xl font-semibold mb-6 text-center text-purple-200">
+                A little bit of my self
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {images.map((src, index) => (
+                <div key={index} className="overflow-hidden rounded-lg shadow-lg">
+                  <Image
+                    src={src}
+                    alt={`Gallery Image ${index + 1}`}
+                    width={400}
+                    height={300}
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+              ))}
             </div>
           </div>
           <div className="mb-12">
