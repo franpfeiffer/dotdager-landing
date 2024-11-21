@@ -12,6 +12,7 @@ const content = {
         name: 'Dot Rager',
         tagline: 'Programmer, sausage taster, professional lumberjack player and cute trans',
         about: 'About Me',
+        boutmyself: 'A little bit about myself',
         aboutText: "Hi, I'm Mariano Villa. I'm passionate about content creation, programming, and exploring the intersection of technology and philosophy. In my free time, I look for desperate single ladies in my area, and I enjoy a juicy, delicious, beautiful, giant, veiny...what was I talking about? Doesn't matter. I'm a self-proclaimed fan of falopa, ugly trans women, and VB.",
         interests: 'Passions',
         goto: 'Go to',
@@ -41,6 +42,7 @@ const content = {
         name: 'Dot Rager',
         tagline: 'Programador, catador de salchicas, jugador profesional de lumberjack y trava lindo',
         about: 'Sobre Mí',
+        boutmyself: 'Un poquito sobre mi',
         aboutText: 'Holi, soy Mariano Villa. Me apasiona crear contenido, programar y explorar la intersección entre tecnología y filosofía. En mis tiempos libres, busco solteras desesperadas en mi area, degusto de jugosos, deliciosos, hermosos, gigantes, venosos... de que hablaba? No importa. Fanatico declarado de la falopa, los travas feos y de VB.',
         interests: 'Pasiones',
         projects: 'Proyectos Destacados',
@@ -213,7 +215,7 @@ export default function Home() {
           </div>
           <div className="mb-12">
             <h2 className="text-2xl font-semibold mb-6 text-center text-purple-200">
-                A little bit of my self
+                {boutmyself}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {images.map((src, index) => (
