@@ -38,6 +38,8 @@ const content = {
         socials: 'Connect',
         sendMessage: 'Send Message',
         mailMessage: 'Super serious email, please don\'t spam',
+        lumber: 'THE BEST GAME EVER',
+        lumberjack: "Hi I'm the dev, I scored a 234(don't laugh) if you beat it I'll give you a kiss, not gonna tell you where 😙",
     },
     es: {
         name: 'Dot Rager',
@@ -68,6 +70,8 @@ const content = {
         socials: 'Conectar',
         sendMessage: 'Enviar Mensaje',
         mailMessage: 'Email super serio, por favor no spam',
+        lumber: 'EL MEJOR JUEGO DEL MUNDO WACHO',
+        lumberjack: "Holi soy el dev, hice 234(no te burles) si me pasas te doy una beso, pero no te digo donde 😙",
     },
 };
 
@@ -147,6 +151,17 @@ export default function Home() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [currentBanner, setCurrentBanner] = useState(0);
     const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+    const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+
+    const interests = [
+        { icon: FaCode, name: 'Code' },
+        { icon: FaGuitar, name: 'Guitar' },
+        { icon: FaCat, name: 'Bri Marcos' },
+        { icon: GiPickle, name: 'Juicy Pickles' },
+        { icon: FaBook, name: 'Philosophy' },
+        { icon: FaMusic, name: 'Music' },
+    ];
+
     const profileImages = [
         "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-6eokCp0N3WsVC0qaEqvY09gkbZRg1S.png",
         "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-mbgnriOz2OMtoawYsqXvf6LFqvS0LU.png",
@@ -213,7 +228,7 @@ export default function Home() {
               onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
               className="absolute top-4 right-4 text-3xl font-medium text-purple-200 hover:text-white transition-colors"
             >
-              {language === 'en' ? '🧉' : '🌈'}
+              {language === 'en' ? '🧉' : '🏳️‍🌈'}
             </button>
           )}
           <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
@@ -243,33 +258,25 @@ export default function Home() {
             <h2 className="text-2xl font-semibold mb-6 text-center text-purple-200">
               {content[language].interests}
             </h2>
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
-              <div className="flex flex-col items-center gap-2">
-                <FaCode className="text-5xl text-purple-300" />
-                <span className="text-sm text-purple-200"></span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <FaGuitar className="text-5xl text-purple-300" />
-                <span className="text-sm text-purple-200"></span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <FaCat className="text-5xl text-purple-300" />
-                <span className="text-sm text-purple-200"></span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <GiPickle className="text-5xl text-purple-300" />
-
-                <span className="text-sm text-purple-200"></span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <FaBook className="text-5xl text-purple-300" />
-                <span className="text-sm text-purple-200"></span>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                <FaMusic className="text-5xl text-purple-300" />
-                <span className="text-sm text-purple-200"></span>
-              </div>
-            </div>
+            <div className="mb-12 grid grid-cols-3 md:grid-cols-6 gap-6 justify-items-center">
+                {interests.map((interest, index) => (
+                    <div
+                        key={index}
+                        className="flex flex-col items-center gap-2 relative"
+                        onMouseEnter={() => setHoveredItem(interest.name)}
+                        onMouseLeave={() => setHoveredItem(null)}
+                        >
+                    <interest.icon className="text-5xl text-purple-300" />
+                    <span
+                        className={`text-sm text-center text-purple-200 absolute -bottom-11 transition-opacity duration-300 ${
+                        hoveredItem === interest.name ? 'opacity-100' : 'opacity-0'
+                        }`}
+                    >
+                    {interest.name}
+                    </span>
+                </div>
+              ))}
+          </div>
           </div>
           <div className="mb-12">
             <h2 className="text-2xl font-semibold mb-6 text-center text-purple-200">
@@ -313,6 +320,20 @@ export default function Home() {
                     />
                 ))}
             </div>
+          </div>
+          <div className="mb-12 w-full max-w-xl h-full max-h-xs mx-auto my-8 bg-[#2d2442] rounded-lg shadow-xl overflow-hidden">
+            <SectionTitle>{content[language].lumber}</SectionTitle>
+                <div className="aspect-[9/16] w-full">
+                <iframe
+                    src="https://tbot.xyz/lumber/"
+                    className="w-full h-full border-0"
+                    sandbox="allow-scripts allow-same-origin allow-popups"
+                    title="lumberjack"
+                />
+        <p className="text-center text-xs text-purple-200 mt-2">
+            {content[language].lumberjack}
+        </p>
+        </div>
           </div>
           <div className="mb-12">
             <SectionTitle>{content[language].socials}</SectionTitle>
